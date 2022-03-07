@@ -8,3 +8,7 @@ node_modules
 /build/
 /public/build
 /api/index.js
+/app/styles
+
+
+yarn-error.log
