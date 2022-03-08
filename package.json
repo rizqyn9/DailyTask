@@ -5,8 +5,7 @@
   "license": "",
   "sideEffects": false,
   "scripts": {
-    "start": "yarn build:css && remix-serve build",
-    "build": "cross-env NODE_ENV=production remix build",
+    "build": "cross-env NODE_ENV=production yarn build:css && remix build",
     "build:css": "postcss styles/**/*.css --base styles --dir app/styles",
     "dev": "cross-env NODE_ENV=development pm2-dev ./other/pm2.config.js",
     "postinstall": "remix setup node",
