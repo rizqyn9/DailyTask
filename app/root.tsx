@@ -14,7 +14,7 @@ import TailwindStyles from "./styles/tailwind.css";
 import { BaseLayout } from "./components/Layout";
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  return { title: "RDEV | Daily Task" };
 };
 
 export const links: LinksFunction = () => {

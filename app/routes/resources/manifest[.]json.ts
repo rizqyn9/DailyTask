@@ -8,8 +8,8 @@ export let loader: LoaderFunction = () => {
       name: "DailyTask",
       start_url: "/",
       display: "standalone",
-      background_color: "#d3d7dd",
-      theme_color: "#c34138",
+      background_color: "#151D3B",
+      theme_color: "#151D3B",
       shortcuts: [
         {
           name: "Homepage",
