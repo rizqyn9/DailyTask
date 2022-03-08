@@ -3,7 +3,7 @@ function json(data, init = {}) {
   let responseInit = init;
   if (typeof init === "number") {
     responseInit = {
-      status: init
+      status: init,
     };
   }
   let headers = new Headers(responseInit.headers);
@@ -12,7 +12,7 @@ function json(data, init = {}) {
   }
   return new Response(JSON.stringify(data), {
     ...responseInit,
-    headers
+    headers,
   });
 }
 
@@ -40,13 +40,16 @@ async function handleMessage(event) {
     const [dataCache, documentCache, existingDocument] = await Promise.all([
       caches.open(DATA_CACHE),
       caches.open(DOCUMENT_CACHE),
-      caches.match(documentUrl)
+      caches.match(documentUrl),
     ]);
     if (!existingDocument || !isMount) {
       debug("Caching document for", documentUrl);
-      cachePromises.set(documentUrl, documentCache.add(documentUrl).catch((error) => {
-        debug(`Failed to cache document for ${documentUrl}:`, error);
-      }));
+      cachePromises.set(
+        documentUrl,
+        documentCache.add(documentUrl).catch((error) => {
+          debug(`Failed to cache document for ${documentUrl}:`, error);
+        })
+      );
     }
     if (isMount) {
       for (const match of matches) {
@@ -58,9 +61,12 @@ async function handleMessage(event) {
           const url = location.pathname + search + location.hash;
           if (!cachePromises.has(url)) {
             debug("Caching data for", url);
-            cachePromises.set(url, dataCache.add(url).catch((error) => {
-              debug(`Failed to cache data for ${url}:`, error);
-            }));
+            cachePromises.set(
+              url,
+              dataCache.add(url).catch((error) => {
+                debug(`Failed to cache data for ${url}:`, error);
+              })
+            );
           }
         }
       }
@@ -74,7 +80,7 @@ async function handleFetch(event) {
     const cached = await caches.match(event.request, {
       cacheName: ASSET_CACHE,
       ignoreVary: true,
-      ignoreSearch: true
+      ignoreSearch: true,
     });
     if (cached) {
       debug("Serving asset from cache", url.pathname);
@@ -96,16 +102,22 @@ async function handleFetch(event) {
       await cache.put(event.request, response.clone());
       return response;
     } catch (error) {
-      debug("Serving data from network failed, falling back to cache", url.pathname + url.search);
+      debug(
+        "Serving data from network failed, falling back to cache",
+        url.pathname + url.search
+      );
       const response = await caches.match(event.request);
       if (response) {
         response.headers.set("X-Remix-Worker", "yes");
         return response;
       }
-      return json({ message: "Network Error" }, {
-        status: 500,
-        headers: { "X-Remix-Catch": "yes", "X-Remix-Worker": "yes" }
-      });
+      return json(
+        { message: "Network Error" },
+        {
+          status: 500,
+          headers: { "X-Remix-Catch": "yes", "X-Remix-Worker": "yes" },
+        }
+      );
     }
   }
   if (isDocumentGetRequest(event.request)) {
@@ -116,7 +128,10 @@ async function handleFetch(event) {
       await cache.put(event.request, response.clone());
       return response;
     } catch (error) {
-      debug("Serving document from network failed, falling back to cache", url.pathname);
+      debug(
+        "Serving document from network failed, falling back to cache",
+        url.pathname
+      );
       const response = await caches.match(event.request);
       if (response) {
         return response;
@@ -130,19 +145,25 @@ var handlePush = (event) => {
   var _a;
   const title = "App Name";
   const options = {
-    body: ((_a = event == null ? void 0 : event.data) == null ? void 0 : _a.text()) || "Notification Body Text",
+    body:
+      ((_a = event == null ? void 0 : event.data) == null
+        ? void 0
+        : _a.text()) || "Notification Body Text",
     icon: "/icons/android-icon-192x192.png",
-    badge: "/icons/android-icon-48x48.png"
+    badge: "/icons/android-icon-48x48.png",
   };
   self.registration.showNotification(title, {
-    ...options
+    ...options,
   });
 };
 function isMethod(request, methods) {
   return methods.includes(request.method.toLowerCase());
 }
 function isAssetRequest(request) {
-  return isMethod(request, ["get"]) && STATIC_ASSETS.some((publicPath) => request.url.startsWith(publicPath));
+  return (
+    isMethod(request, ["get"]) &&
+    STATIC_ASSETS.some((publicPath) => request.url.startsWith(publicPath))
+  );
 }
 function isLoaderRequest(request) {
   const url = new URL(request.url);
@@ -164,20 +185,19 @@ self.addEventListener("push", (event) => {
   event.waitUntil(handlePush(event));
 });
 self.addEventListener("fetch", (event) => {
-  event.respondWith((async () => {
-    const result = {};
-    try {
-      result.response = await handleFetch(event);
-    } catch (error) {
-      result.error = error;
-    }
-    return appHandleFetch(event, result);
-  })());
+  event.respondWith(
+    (async () => {
+      const result = {};
+      try {
+        result.response = await handleFetch(event);
+      } catch (error) {
+        result.error = error;
+      }
+      return appHandleFetch(event, result);
+    })()
+  );
 });
-async function appHandleFetch(event, {
-  error,
-  response
-}) {
+async function appHandleFetch(event, { error, response }) {
   return response;
 }
 /**

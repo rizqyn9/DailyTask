@@ -4,8 +4,8 @@ import type { LoaderFunction } from "remix";
 export let loader: LoaderFunction = () => {
   return json(
     {
-      short_name: "PWA",
-      name: "Remix PWA",
+      short_name: "DT",
+      name: "DailyTask",
       start_url: "/",
       display: "standalone",
       background_color: "#d3d7dd",
@@ -67,6 +67,6 @@ export let loader: LoaderFunction = () => {
       headers: {
         "Cache-Control": "public, max-age=600",
       },
-    },
+    }
   );
 };

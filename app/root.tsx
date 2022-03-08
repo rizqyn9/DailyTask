@@ -18,7 +18,10 @@ export const meta: MetaFunction = () => {
 };
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: TailwindStyles }];
+  return [
+    { rel: "stylesheet", href: TailwindStyles },
+    { rel: "manifest", href: "/resources/manifest.json" },
+  ];
 };
 
 export default function App() {
@@ -68,9 +71,7 @@ export default function App() {
         <Meta /> <Links />
       </head>
       <body className="relative flex flex-col items-center bg-gray-700 text-white">
-        <BaseLayout>
-          <Outlet />
-        </BaseLayout>
+        <BaseLayout />
         <ScrollRestoration /> <Scripts /> <LiveReload />
       </body>
     </html>
