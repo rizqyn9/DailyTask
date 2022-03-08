@@ -1,8 +1,9 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import type { MetaFunction } from "remix";
 import { Grid } from "~/components/Grid";
 import { H5, H6 } from "~/components/Typography";
-import { motion } from "framer-motion";
+import { animate, motion, Reorder, useMotionValue } from "framer-motion";
+import type { MotionValue } from "framer-motion";
 
 export const meta: MetaFunction = () => {
   return { title: "Home | Daily Task" };
@@ -15,82 +16,74 @@ export default function Index() {
 
       {/* Todo Container */}
       <div className="col-span-full">
-        <Todo />
+        <TodoReoorder />
       </div>
     </Grid>
   );
 }
 
-function Todo() {
+const dummy: Array<string> = ["Task 1 ", "Task 2", "Task 3"];
+
+function TodoReoorder() {
+  const [items, setItems] = useState(dummy);
   return (
-    <div className="">
-      <p className="text-xl">Todo</p>
-      <DraggableContainer items={dummy} />
-    </div>
+    <Reorder.Group
+      axis="y"
+      values={items}
+      onReorder={setItems}
+      className="rounded-lg bg-white/10 p-5"
+    >
+      {items.map((val, i) => (
+        <TodoReorderItem key={i} item={val} />
+      ))}
+    </Reorder.Group>
   );
 }
 
-const dummy = ["asd", "asdad", "item3"];
-
-type Position = { top: number; height: number };
-
-function DraggableContainer({ items }: { items: Array<string> }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const positions = useRef<Array<Position>>([]).current;
-
-  const registerPosition = (i: number, offset: Position) =>
-    (positions[i] = offset);
+function TodoReorderItem({ item }: { item: string }) {
+  const y = useMotionValue(0);
+  const boxShadow = useRaisedShadow(y);
 
   return (
-    <div className="relative flex flex-col gap-5" ref={containerRef}>
-      {items.map((val, i) => {
-        return (
-          <DraggableItem
-            title={val}
-            key={i}
-            i={i}
-            containerRef={containerRef}
-            setPosition={registerPosition}
-          />
-        );
-      })}
-    </div>
+    <Reorder.Item
+      value={item}
+      id={item}
+      style={{ y, boxShadow }}
+      whileDrag={{
+        opacity: 1,
+        backgroundColor: "white",
+        color: "black",
+        zIndex: 100,
+      }}
+      className="relative my-2 rounded-md bg-white/20 py-2 px-5"
+    >
+      <span>{item}</span>
+    </Reorder.Item>
   );
 }
 
-type DraggableItemState = "drag" | "iddle" | "active";
+const inactiveShadow = "0px 0px 0px rgba(0,0,0,0.8)";
 
-function DraggableItem({
-  i,
-  title,
-  containerRef,
-  setPosition,
-}: {
-  i: number;
-  title: string;
-  containerRef: React.Ref<HTMLDivElement>;
-  setPosition: (i: number, offset: Position) => void;
-}) {
-  const ref = useRef<HTMLButtonElement>(null);
+export function useRaisedShadow(value: MotionValue<number>) {
+  const boxShadow = useMotionValue(inactiveShadow);
 
   useEffect(() => {
-    setPosition(i, {
-      height: ref.current?.offsetHeight || 10,
-      top: ref.current?.offsetTop || 10,
+    let isActive = false;
+    value.onChange((latest) => {
+      const wasActive = isActive;
+      if (latest !== 0) {
+        isActive = true;
+        if (isActive !== wasActive) {
+          animate(boxShadow, "5px 5px 10px rgba(0,0,0,0.3)");
+        }
+      } else {
+        isActive = false;
+        if (isActive !== wasActive) {
+          animate(boxShadow, inactiveShadow);
+        }
+      }
     });
-  }, []);
+  }, [value, boxShadow]);
 
-  return (
-    <motion.button
-      ref={ref}
-      whileTap={{ opacity: 0.5 }}
-      drag={"y"}
-      whileDrag={{ scale: 1.2 }}
-      //@ts-ignore
-      dragConstraints={containerRef}
-      className="bg-gray-200/10 py-4"
-    >
-      <H6>{title}</H6>
-    </motion.button>
-  );
+  return boxShadow;
 }
