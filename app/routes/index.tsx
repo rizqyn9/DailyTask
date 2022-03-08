@@ -16,7 +16,11 @@ export default function Index() {
 
       {/* Todo Container */}
       <div className="col-span-full">
-        <TodoReoorder />
+        <TodoReorder />
+        <TodoReorder />
+        <TodoReorder />
+        <TodoReorder />
+        <TodoReorder />
       </div>
     </Grid>
   );
@@ -24,14 +28,14 @@ export default function Index() {
 
 const dummy: Array<string> = ["Task 1 ", "Task 2", "Task 3"];
 
-function TodoReoorder() {
+function TodoReorder() {
   const [items, setItems] = useState(dummy);
   return (
     <Reorder.Group
       axis="y"
       values={items}
       onReorder={setItems}
-      className="rounded-lg bg-white/10 p-5"
+      className="relative rounded-lg bg-white/10 p-5"
     >
       {items.map((val, i) => (
         <TodoReorderItem key={i} item={val} />
@@ -50,12 +54,9 @@ function TodoReorderItem({ item }: { item: string }) {
       id={item}
       style={{ y, boxShadow }}
       whileDrag={{
-        opacity: 1,
-        backgroundColor: "white",
-        color: "black",
         zIndex: 100,
       }}
-      className="relative my-2 rounded-md bg-white/20 py-2 px-5"
+      className="relative my-2 cursor-grab rounded-md bg-white/20 py-2 px-5"
     >
       <span>{item}</span>
     </Reorder.Item>

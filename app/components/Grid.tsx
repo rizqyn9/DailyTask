@@ -9,16 +9,26 @@ interface GridProps {
   nested?: boolean;
   rowGap?: boolean;
   featured?: boolean;
+  relative?: boolean;
 }
 
 const Grid = React.forwardRef<HTMLElement, GridProps>(function Grid(
-  { children, className, as: Tag = "div", featured, nested, rowGap },
+  {
+    children,
+    className,
+    as: Tag = "div",
+    featured,
+    nested,
+    rowGap,
+    relative = true,
+  },
   ref
 ) {
   return (
     <Tag
       ref={ref}
-      className={clsx("relative", {
+      className={clsx({
+        relative: relative,
         "mx-10vw": !nested,
         "w-full": nested,
         "py-10 md:py-24 lg:pb-40 lg:pt-36": featured,

@@ -3,7 +3,6 @@ import {
   Links,
   LiveReload,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   useLocation,
@@ -11,6 +10,7 @@ import {
 } from "remix";
 import type { MetaFunction, LinksFunction } from "remix";
 import TailwindStyles from "./styles/tailwind.css";
+import GlobalStyles from "./styles/global.css";
 import { BaseLayout } from "./components/Layout";
 
 export const meta: MetaFunction = () => {
@@ -19,6 +19,7 @@ export const meta: MetaFunction = () => {
 
 export const links: LinksFunction = () => {
   return [
+    { rel: "stylesheet", href: GlobalStyles },
     { rel: "stylesheet", href: TailwindStyles },
     { rel: "manifest", href: "/resources/manifest.json" },
   ];

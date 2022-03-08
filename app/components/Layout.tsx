@@ -5,7 +5,7 @@ import { Navbar } from "./Navbar";
 function BaseLayout() {
   return (
     <>
-      <div className="absolute top-0 left-0 -z-10 h-screen w-screen overflow-hidden">
+      <div className="fixed top-0 left-0 -z-10 h-screen w-screen overflow-hidden">
         <div
           className="h-[150%] w-[150%] -translate-x-[35%] -translate-y-[25%] blur-3xl brightness-75"
           style={{
