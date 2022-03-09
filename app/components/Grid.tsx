@@ -9,7 +9,7 @@ interface GridProps {
   nested?: boolean;
   rowGap?: boolean;
   featured?: boolean;
-  relative?: boolean;
+  classNameParents?: string;
 }
 
 const Grid = React.forwardRef<HTMLElement, GridProps>(function Grid(
@@ -20,19 +20,21 @@ const Grid = React.forwardRef<HTMLElement, GridProps>(function Grid(
     featured,
     nested,
     rowGap,
-    relative = true,
+    classNameParents,
   },
   ref
 ) {
   return (
     <Tag
       ref={ref}
-      className={clsx({
-        relative: relative,
-        "mx-10vw": !nested,
-        "w-full": nested,
-        "py-10 md:py-24 lg:pb-40 lg:pt-36": featured,
-      })}
+      className={clsx(
+        {
+          "mx-10vw": !nested,
+          "w-full": nested,
+          "py-10 md:py-24 lg:pb-40 lg:pt-36": featured,
+        },
+        classNameParents
+      )}
     >
       {featured ? (
         <div className="absolute inset-0 -mx-5vw">

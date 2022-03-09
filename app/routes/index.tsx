@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <Grid nested className="py-5">
+    <Grid nested className="py-5" classNameParents="relative">
       <H5 className="col-span-full">Tues, 23 March 2022</H5>
 
       {/* Todo Container */}
