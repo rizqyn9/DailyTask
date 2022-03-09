@@ -16,8 +16,8 @@ function Hamburger({
   className,
   style,
 }: {
-  className: string;
-  style: CSSProperties;
+  className?: string;
+  style?: CSSProperties;
 }) {
   const [isOpen, setOpen] = useState(false);
   const path01Controls = useAnimation();

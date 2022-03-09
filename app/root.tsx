@@ -84,6 +84,7 @@ export default function App() {
         style={{
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
           minHeight: "100vh",
           position: "relative",
         }}

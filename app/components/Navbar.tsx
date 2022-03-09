@@ -1,19 +1,32 @@
 import React from "react";
+import { styled } from "~/stitches.config";
+import { Wrapper } from "./Container";
 import { Hamburger } from "./Hamburger";
-import { H2 } from "./Typography";
+
+const WrapNav = styled(Wrapper, {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  py: "1rem",
+  px: "3rem",
+  backgroundColor: "rgba(144, 142, 150, .5)",
+});
 
 function Navbar() {
   return (
-    <nav className="supports-backdrop-blur:bg-white/10 sticky top-0 z-40 w-full flex-none border-b border-white/20 bg-gray-500/50 backdrop-blur transition-colors duration-500 dark:border-slate-50/[0.06] dark:bg-slate-900/75 lg:z-50 lg:border-b lg:border-transparent lg:bg-transparent">
-      <div className="col-span-full flex items-center justify-between p-4 md:p-6 lg:bg-transparent">
-        <Hamburger
-          className="grid h-5 place-content-center"
-          style={{ flex: "0 1 10%" }}
-        />
-        <H2 className="font-bold">Daily Task</H2>
-        <div style={{ flex: "0 1 10%" }}>3</div>
-      </div>
-    </nav>
+    <WrapNav as="nav" css={{ minHeight: "unset" }}>
+      <Hamburger
+        style={{
+          flex: "0 1 5%",
+          appearance: "none",
+          background: "transparent",
+          border: "none",
+          width: "100%",
+        }}
+      />
+      <h1>Daily Task</h1>
+      <div>3</div>
+    </WrapNav>
   );
 }
 
