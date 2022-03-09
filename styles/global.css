@@ -1,3 +1,15 @@
+:root {
+}
+.rdev-light {
+  --colors-text: red;
+  --colors-bg-primary: pink;
+}
+
+.rdev-dark {
+  --colors-text: white;
+  --colors-bg-primary: darkBlue;
+}
+
 body::-webkit-scrollbar {
   width: 0.3em;
 }
@@ -9,4 +21,22 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*:before {
+  box-sizing: border-box;
+}
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  word-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  margin: 0;
 }

@@ -4,6 +4,7 @@ import { Grid } from "~/components/Grid";
 import { H5, H6 } from "~/components/Typography";
 import { animate, motion, Reorder, useMotionValue } from "framer-motion";
 import type { MotionValue } from "framer-motion";
+import { styled } from "~/stitches.config";
 
 export const meta: MetaFunction = () => {
   return { title: "Home | Daily Task" };
@@ -11,20 +12,15 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <Grid nested className="py-5" classNameParents="relative">
-      <H5 className="col-span-full">Tues, 23 March 2022</H5>
-
-      {/* Todo Container */}
-      <div className="col-span-full">
-        <TodoReorder />
-        <TodoReorder />
-        <TodoReorder />
-        <TodoReorder />
-        <TodoReorder />
-      </div>
-    </Grid>
+    <div>
+      <Title>Test</Title>
+    </div>
   );
 }
+
+const Title = styled("h1", {
+  color: "$mauve1",
+});
 
 const dummy: Array<string> = ["Task 1 ", "Task 2", "Task 3"];
 
