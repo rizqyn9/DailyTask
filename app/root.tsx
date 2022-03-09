@@ -5,13 +5,14 @@ import {
   Meta,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useLocation,
   useMatches,
 } from "remix";
-import type { MetaFunction, LinksFunction } from "remix";
-import TailwindStyles from "./styles/tailwind.css";
+import type { MetaFunction, LinksFunction, LoaderFunction } from "remix";
 import GlobalStyles from "./styles/global.css";
 import { BaseLayout } from "./components/Layout";
+import { getCssText } from "./utils/stitches.config";
 
 export const meta: MetaFunction = () => {
   return { title: "RDEV | Daily Task" };
@@ -20,14 +21,20 @@ export const meta: MetaFunction = () => {
 export const links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: GlobalStyles },
-    { rel: "stylesheet", href: TailwindStyles },
     { rel: "manifest", href: "/resources/manifest.json" },
   ];
+};
+
+export const loader: LoaderFunction = async () => {
+  return new Response(getCssText(), {
+    headers: { "Content-Type": "text/css; charset=UTF-8" },
+  });
 };
 
 export default function App() {
   let location = useLocation();
   let matches = useMatches();
+  let styles = useLoaderData();
 
   let isMount = true;
   React.useEffect(() => {
@@ -70,6 +77,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta /> <Links />
+        <style id="stitches">{styles}</style>
       </head>
       <body className="relative flex flex-col items-center bg-gray-700 text-white">
         <BaseLayout />
