@@ -40,7 +40,13 @@ function Navbar() {
         }}
       />
       <h1>Daily Task</h1>
-      <div>3</div>
+      <div
+        style={{
+          flex: "0 1 5%",
+        }}
+      >
+        3
+      </div>
     </WrapNav>
   );
 }
