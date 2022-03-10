@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap");
+
 :root {
 }
 .rdev-light {
@@ -35,8 +37,16 @@ body::-webkit-scrollbar-thumb {
   box-sizing: border-box;
 }
 
+button {
+  background: none;
+  appearance: none;
+  border: none;
+  color: white;
+}
+
 body {
   word-wrap: break-word;
   text-rendering: optimizeLegibility;
   margin: 0;
+  font-family: "Poppins", sans-serif;
 }

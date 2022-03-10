@@ -2,7 +2,6 @@ import { styled } from "~/stitches.config";
 
 const Wrapper = styled("div", {
   // mini reset
-  minHeight: "100vh",
   color: "$mauve1",
   width: "100%",
   maxWidth: "72rem",
@@ -12,11 +11,23 @@ const Wrapper = styled("div", {
       true: {
         width: "100vw",
         maxWidth: "100vw",
+        minHeight: "100vh",
+      },
+    },
+    flexCols: {
+      true: {
+        display: "flex",
+        flexDirection: "column",
+      },
+    },
+    flex: {
+      true: {
+        display: "flex",
       },
     },
   },
 
-  compoundVariants: [{ fullScreen: false, css: { background: "$mauve1" } }],
+  compoundVariants: [],
 });
 
 export { Wrapper };

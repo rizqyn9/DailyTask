@@ -1,9 +1,7 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { MetaFunction } from "remix";
-import { Grid } from "~/components/Grid";
-import { H5, H6 } from "~/components/Typography";
-import { animate, motion, Reorder, useMotionValue } from "framer-motion";
-import type { MotionValue } from "framer-motion";
+import { Wrapper } from "~/components/Container";
+import { Title, P } from "~/components/Typography";
 import { styled } from "~/stitches.config";
 
 export const meta: MetaFunction = () => {
@@ -12,75 +10,78 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div>
-      <Title>Test</Title>
-    </div>
+    <Wrapper css={{ px: "3rem", py: "2rem" }}>
+      <ListContainer />
+    </Wrapper>
   );
 }
 
-const Title = styled("h1", {
-  color: "$mauve1",
+function ListContainer() {
+  const [data, setData] = useState(["sad", "asd"]);
+
+  return (
+    <Wrapper flexCols css={{ gap: ".5rem" }}>
+      <Title type={"h5"}>Todo</Title>
+      {data.map((val, i) => {
+        return <TaskContainer key={i} />;
+      })}
+    </Wrapper>
+  );
+}
+
+const StyledTask = styled("div", {
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  color: "Aqua",
+  background: "$mauve11",
+  width: "100%",
+  py: "10px",
+  px: "1rem",
+  borderRadius: "3px",
+  borderLeft: "3px solid Aqua",
+  cursor: "pointer",
+  transition: "all ease-in-out .2s",
+
+  "&:hover": {
+    background: "$mauve12",
+  },
 });
 
-const dummy: Array<string> = ["Task 1 ", "Task 2", "Task 3"];
+type VariantTask = "important" | "iddle" | "hobby";
 
-function TodoReorder() {
-  const [items, setItems] = useState(dummy);
+let catDummy: Array<VariantTask> = ["hobby", "iddle", "important"];
+
+function TaskContainer() {
   return (
-    <Reorder.Group
-      axis="y"
-      values={items}
-      onReorder={setItems}
-      className="relative rounded-lg bg-white/10 p-5"
-    >
-      {items.map((val, i) => (
-        <TodoReorderItem key={i} item={val} />
-      ))}
-    </Reorder.Group>
+    <StyledTask css={{ gap: ".5rem" }}>
+      <span>Task 1</span>
+      <Wrapper css={{ display: "flex", gap: ".5rem" }}>
+        {catDummy.map((val, i) => {
+          return <StyledCategory key={i} variant={val} />;
+        })}
+      </Wrapper>
+    </StyledTask>
   );
 }
 
-function TodoReorderItem({ item }: { item: string }) {
-  const y = useMotionValue(0);
-  const boxShadow = useRaisedShadow(y);
+const StyledCategory = styled("div", {
+  width: "2rem",
+  height: "5px",
+  borderRadius: "9999px",
 
-  return (
-    <Reorder.Item
-      value={item}
-      id={item}
-      style={{ y, boxShadow }}
-      whileDrag={{
-        zIndex: 100,
-      }}
-      className="relative my-2 cursor-grab rounded-md bg-white/20 py-2 px-5"
-    >
-      <span>{item}</span>
-    </Reorder.Item>
-  );
-}
-
-const inactiveShadow = "0px 0px 0px rgba(0,0,0,0.8)";
-
-export function useRaisedShadow(value: MotionValue<number>) {
-  const boxShadow = useMotionValue(inactiveShadow);
-
-  useEffect(() => {
-    let isActive = false;
-    value.onChange((latest) => {
-      const wasActive = isActive;
-      if (latest !== 0) {
-        isActive = true;
-        if (isActive !== wasActive) {
-          animate(boxShadow, "5px 5px 10px rgba(0,0,0,0.3)");
-        }
-      } else {
-        isActive = false;
-        if (isActive !== wasActive) {
-          animate(boxShadow, inactiveShadow);
-        }
-      }
-    });
-  }, [value, boxShadow]);
-
-  return boxShadow;
-}
+  variants: {
+    variant: {
+      important: {
+        background: "red",
+      },
+      iddle: {
+        background: "blue",
+      },
+      hobby: {
+        background: "aqua",
+      },
+    },
+  },
+  defaultVariants: { variant: "hobby" },
+});

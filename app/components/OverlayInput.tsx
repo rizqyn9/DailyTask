@@ -1,21 +1,68 @@
 import { motion } from "framer-motion";
+import type { Variant } from "framer-motion";
+import { styled } from "~/stitches.config";
+import { useState } from "react";
+import * as React from "react";
+
+const StyledOverlay = styled("div", {
+  color: "white",
+  position: "fixed",
+  bottom: "0",
+  width: "100vw",
+  minHeight: "3rem",
+});
+
+const VariantStyle: Record<string, Variant> = {
+  active: {
+    width: "100%",
+    height: "20vh",
+    x: 0,
+    y: 0,
+    borderRadius: "1rem 1rem 0 0",
+    background: "gray",
+  },
+  deactive: {
+    height: "3rem",
+    width: "3rem",
+    background: "darkblue",
+    borderRadius: "999px",
+    y: "-3rem",
+    x: "-2rem",
+  },
+};
 
 function OverlayInput() {
+  const [active, setActive] = useState(false);
   return (
-    <motion.div
-      className="fixed bottom-1 w-full max-w-7xl p-6"
-      initial={{ y: "6rem", opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, type: "spring" }}
-    >
-      <div className="col-span-full flex items-center justify-between gap-3 rounded-lg border bg-gray-200/60 p-3">
-        <input
-          type={"text"}
-          className="flex-auto rounded-md bg-gray-600 py-2 px-4"
-        />
-        <p>Tambah</p>
-      </div>
-    </motion.div>
+    <StyledOverlay>
+      <motion.button
+        onClick={() => setActive(!active)}
+        style={{
+          cursor: "pointer",
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+        }}
+        variants={VariantStyle}
+        transition={{
+          duration: 0.5,
+        }}
+        initial={"deactive"}
+        animate={active ? "active" : "deactive"}
+      >
+        {!active ? "Add" : <Input handleClick={setActive} />}
+      </motion.button>
+    </StyledOverlay>
+  );
+}
+
+function Input({ handleClick }: { handleClick: React.Dispatch<boolean> }) {
+  return (
+    <div>
+      <p>Input</p>
+      <input type={"text"} />
+      <button onClick={() => handleClick(false)}>Close</button>
+    </div>
   );
 }
 

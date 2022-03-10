@@ -9,7 +9,7 @@ const WrapNav = styled(Wrapper, {
   alignItems: "center",
   py: "1rem",
   px: "3rem",
-  backgroundColor: "rgba(144, 142, 150, .5)",
+  backgroundColor: "rgba(144, 142, 150, .2)",
 });
 
 function Navbar() {

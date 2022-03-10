@@ -20,12 +20,13 @@ function MainLayout() {
       >
         <Wrapper
           css={{
+            maxWidth: "unset",
             background: "url('/bg5.jpg')",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            width: "120vw",
-            height: "150vh",
-            transform: "translate(-10vw, -20vh)",
+            width: "200vw",
+            height: "250vh",
+            transform: "translate(-20vw, -20vh)",
             filter: "blur(5rem)",
           }}
         />
@@ -34,6 +35,7 @@ function MainLayout() {
         <Navbar />
         <Outlet />
       </Wrapper>
+      <OverlayInput />
     </>
   );
 }
