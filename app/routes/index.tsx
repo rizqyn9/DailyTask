@@ -48,7 +48,6 @@ const StyledTask = styled(motion.div, {
   display: "flex",
   flexDirection: "column",
   color: "Aqua",
-  background: "$mauve11",
   width: "100%",
   py: "10px",
   px: "1rem",
@@ -56,6 +55,7 @@ const StyledTask = styled(motion.div, {
   borderLeft: "3px solid Aqua",
   cursor: "pointer",
   transition: "all ease-in-out .2s",
+  background: "$mauve11",
 
   "&:hover": {
     background: "$mauve12",

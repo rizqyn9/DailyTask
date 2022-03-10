@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "remix";
 import { Wrapper } from "./Container";
+import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { OverlayInput } from "./OverlayInput";
 
@@ -34,6 +35,7 @@ function MainLayout() {
       <Wrapper>
         <Navbar />
         <Outlet />
+        <Footer />
       </Wrapper>
       <OverlayInput />
     </>

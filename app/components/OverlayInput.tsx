@@ -14,47 +14,48 @@ const StyledOverlay = styled("div", {
 
 const VariantStyle: Record<string, Variant> = {
   active: {
-    width: "100%",
-    height: "20vh",
     x: 0,
     y: 0,
     borderRadius: "1rem 1rem 0 0",
     background: "gray",
+    width: "100%",
+    height: "max-content",
+    minHeight: "20vh",
   },
   deactive: {
-    height: "3rem",
-    width: "3rem",
     background: "darkblue",
     borderRadius: "999px",
     y: "-3rem",
     x: "-2rem",
+    height: "4rem",
+    width: "4rem",
   },
 };
 
 function OverlayInput() {
   const [active, setActive] = useState(false);
   return (
-    <StyledOverlay>
-      <motion.button
-        onClick={() => setActive(!active)}
-        style={{
-          cursor: "pointer",
-          position: "absolute",
-          bottom: 0,
-          right: 0,
-        }}
-        variants={VariantStyle}
-        transition={{
-          duration: 0.5,
-        }}
+    <StyledOverlay css={{ maxWidth: "72rem" }}>
+      <OverlayContainerStyled
         initial={"deactive"}
+        variants={VariantStyle}
         animate={active ? "active" : "deactive"}
+        transition={{
+          duration: 0.3,
+        }}
       >
-        {!active ? "Add" : <Input handleClick={setActive} />}
-      </motion.button>
+        <button onClick={() => setActive(!active)}>Button</button>
+        {active && <div style={{ height: "80vh" }}>asd</div>}
+      </OverlayContainerStyled>
     </StyledOverlay>
   );
 }
+
+const OverlayContainerStyled = styled(motion.div, {
+  position: "absolute",
+  bottom: 0,
+  right: 0,
+});
 
 function Input({ handleClick }: { handleClick: React.Dispatch<boolean> }) {
   return (
