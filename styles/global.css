@@ -48,3 +48,9 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
 }
+
+/* @supports (backdrop-filter: blur()) {
+  body {
+    margin: 10rem;
+  }
+} */

@@ -84,14 +84,7 @@ const { config, css, getCssText, keyframes, styled, globalCss, theme } =
   });
 
 export const globalStyles = globalCss({
-  div: {
-    padding: 0,
-    margin: 0,
-  },
-  body: {
-    padding: 0,
-    margin: 0,
-  },
+  "@supports (backdrop-filter: blur())": {},
 });
 
 export type CSS = StitchesCSS<typeof config>;
