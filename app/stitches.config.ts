@@ -27,10 +27,10 @@ const { config, css, getCssText, keyframes, styled, globalCss, theme } =
       },
     },
     media: {
-      bp1: "(min-width: 480px)",
-      bp2: "(min-width: 768px)",
-      bp3: "(min-width: 1024px)",
-      bp4: "(min-width: 1200px)",
+      bp1: "(max-width: 480px)",
+      bp2: "(max-width: 768px)",
+      bp3: "(max-width: 1024px)",
+      bp4: "(max-width: 1200px)",
     },
     utils: {
       p: (value: PropertyValue<"padding">) => ({

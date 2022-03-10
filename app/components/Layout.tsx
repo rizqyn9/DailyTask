@@ -31,7 +31,7 @@ function MainLayout() {
           }}
         />
       </Wrapper>
-      <Wrapper css={{ background: "rgba(0, 0, 0, 0.7)" }}>
+      <Wrapper>
         <Navbar />
         <Outlet />
       </Wrapper>

@@ -10,6 +10,10 @@ const WrapNav = styled(Wrapper, {
   py: "1rem",
   px: "3rem",
   backgroundColor: "rgba(144, 142, 150, .2)",
+
+  "@bp2": {
+    px: "1rem",
+  },
 });
 
 function Navbar() {
