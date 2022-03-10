@@ -122,13 +122,13 @@ const StyledCategory = styled(motion.div, {
   variants: {
     variant: {
       important: {
-        background: "red",
+        background: "$pink11",
       },
       iddle: {
-        background: "blue",
+        background: "$blue11",
       },
       hobby: {
-        background: "aqua",
+        background: "$violet11",
       },
     },
   },

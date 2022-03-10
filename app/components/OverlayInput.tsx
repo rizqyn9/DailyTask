@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import type {
-  Variant,
-  ForwardRefComponent,
-  HTMLMotionProps,
-} from "framer-motion";
+import type { Variant, HTMLMotionProps } from "framer-motion";
 import { styled } from "~/stitches.config";
 import { useState } from "react";
 import * as React from "react";
@@ -22,14 +18,14 @@ const VariantStyle: Record<string, Variant> = {
   active: {
     x: 0,
     y: 0,
-    borderRadius: "2rem 2rem 0 0",
+    borderRadius: "1.5rem 1.5rem 0 0",
     width: "100%",
     height: "max-content",
     minHeight: "25vh",
-    boxShadow: "0px -2px 5px white",
+    boxShadow: "0px -1px 1px white",
   },
   deactive: {
-    boxShadow: "0px 0px 2px white",
+    boxShadow: "0px 0px 5px white",
     borderRadius: "999px",
     y: "-3rem",
     x: "-2rem",
@@ -104,18 +100,46 @@ function FormCreate({
 } & HTMLMotionProps<"div">) {
   return (
     <FormCreateStyled active={active} {...props}>
-      <Title type={"h5"}>Create new task</Title>
-      <Form>
-        <div>
-          <InputStyled type={"text"} placeholder="Title" />
-        </div>
-      </Form>
-      <Title type={"h5"} onClick={() => setActive(false)}>
-        Cancel
+      <Title
+        type={"h5"}
+        css={{
+          borderBottom: "1px solid rgba(225,225,255, .6)",
+          marginBottom: "1rem",
+          paddingBottom: ".5rem",
+          textAlign: "center",
+        }}
+      >
+        Create new task
       </Title>
+      <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
+        {/* Category Container */}
+        <div style={{ display: "flex", gap: ".5rem" }}>
+          {["asd", "asd", 1, 1, 2, 3, 4].map((val, i) => {
+            return <CategoryItem key={i} />;
+          })}
+        </div>
+        <Form>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}
+          >
+            <InputStyled type={"text"} placeholder="Title" />
+            <InputStyled type={"text"} placeholder="Body" />
+          </div>
+        </Form>
+        <Title type={"h5"} onClick={() => setActive(false)}>
+          Cancel
+        </Title>
+      </div>
     </FormCreateStyled>
   );
 }
+
+const CategoryItem = styled("button", {
+  width: "1rem",
+  height: "1rem",
+  borderRadius: "100%",
+  background: "red",
+});
 
 const InputStyled = styled("input", {
   appearance: "none",

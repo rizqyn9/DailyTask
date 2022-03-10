@@ -23,7 +23,7 @@ const WrapNav = styled(Wrapper, {
 
   "@supports (backdrop-filter: blur())": {
     backdropFilter: "blur(1rem)",
-    backgroundColor: "rgba(144, 142, 150, .2)",
+    backgroundColor: "hsla(260, 25.0%, 11.0%,40%)",
   },
 });
 

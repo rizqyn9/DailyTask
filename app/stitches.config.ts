@@ -3,13 +3,17 @@ import {
   CSS as StitchesCSS,
   PropertyValue,
 } from "@stitches/react";
-import { mauve } from "@radix-ui/colors";
+import { blue, mauve, orange, pink, violet } from "@radix-ui/colors";
 
 const { config, css, getCssText, keyframes, styled, globalCss, theme } =
   createStitches({
     theme: {
       colors: {
         ...mauve,
+        ...orange,
+        ...pink,
+        ...blue,
+        ...violet,
       },
       fontSizes: {
         1: "12px",
