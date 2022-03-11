@@ -13,6 +13,7 @@ import type { MetaFunction, LinksFunction, LoaderFunction } from "remix";
 import GlobalStyles from "./styles/global.css";
 import { MainLayout } from "./components/Layout";
 import { getCssText } from "./stitches.config";
+import { styled } from "~/stitches.config";
 
 export const meta: MetaFunction = () => {
   return { title: "RDEV | Daily Task" };
@@ -79,19 +80,19 @@ export default function App() {
         <Meta /> <Links />
         {/* <style id="stitches">{styles}</style> */}
       </head>
-      <body
-        className={"rdev-dark"}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          minHeight: "100vh",
-          position: "relative",
-        }}
-      >
+      <StyledBody className={"rdev-dark"}>
         <MainLayout />
         <ScrollRestoration /> <Scripts /> <LiveReload />
-      </body>
+      </StyledBody>
     </html>
   );
 }
+
+const StyledBody = styled("body", {
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  minHeight: "100vh",
+  bg: "black",
+});

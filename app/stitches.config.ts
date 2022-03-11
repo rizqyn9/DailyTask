@@ -84,6 +84,7 @@ const { config, css, getCssText, keyframes, styled, globalCss, theme } =
         marginTop: value,
         marginBottom: value,
       }),
+      bg: (value: PropertyValue<"background">) => ({ background: value }),
     },
   });
 

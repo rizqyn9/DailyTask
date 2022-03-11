@@ -4,7 +4,8 @@ import { styled } from "~/stitches.config";
 import { useState } from "react";
 import * as React from "react";
 import { Title } from "./Typography";
-import { Form } from "remix";
+import { ActionFunction, Form, useActionData } from "remix";
+import { ButtonStyled } from "./Button";
 
 const StyledOverlay = styled("div", {
   color: "white",
@@ -90,6 +91,10 @@ const ButtonIconStyled = styled("button", {
   },
 });
 
+export const action: ActionFunction = () => {
+  console.log("asdsad");
+};
+
 function FormCreate({
   active,
   setActive,
@@ -98,6 +103,8 @@ function FormCreate({
   active: boolean;
   setActive: React.Dispatch<boolean>;
 } & HTMLMotionProps<"div">) {
+  const action = useActionData();
+
   return (
     <FormCreateStyled active={active} {...props}>
       <Title
@@ -118,17 +125,24 @@ function FormCreate({
             return <CategoryItem key={i} />;
           })}
         </div>
-        <Form>
+        <Form action="/" method="get">
           <div
             style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}
           >
             <InputStyled type={"text"} placeholder="Title" />
             <InputStyled type={"text"} placeholder="Body" />
           </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              padding: "1rem",
+            }}
+          >
+            <ButtonStyled type="submit">Add</ButtonStyled>
+            <ButtonStyled onClick={() => setActive(false)}>Cancel</ButtonStyled>
+          </div>
         </Form>
-        <Title type={"h5"} onClick={() => setActive(false)}>
-          Cancel
-        </Title>
       </div>
     </FormCreateStyled>
   );

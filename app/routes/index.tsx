@@ -1,6 +1,6 @@
 import { motion, Variant } from "framer-motion";
 import { ReactNode, useState, useEffect } from "react";
-import type { MetaFunction } from "remix";
+import { ActionFunction, json, LoaderFunction, MetaFunction } from "remix";
 import { Wrapper } from "~/components/Container";
 import { Title } from "~/components/Typography";
 import { styled } from "~/stitches.config";
@@ -65,6 +65,15 @@ const StyledTask = styled(motion.div, {
 type VariantTask = "important" | "iddle" | "hobby";
 
 let catDummy: Array<VariantTask> = ["hobby", "iddle", "important"];
+
+export const action: ActionFunction = () => {
+  console.log("asdsad");
+};
+
+export const loader: LoaderFunction = () => {
+  console.log("Loadere");
+  return json({ asd: "asd" });
+};
 
 function TaskContainer({ children }: { children: ReactNode }) {
   const [isMounted, setMounted] = useState(false);
